@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ '/assets/css/voice.css' | relative_url }}" />
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="spotlight"></div>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-label">VOICE UPDATES</div>
+  <div class="ticker-inner">
+    {% for post in site.posts limit:10 %}
+    <span class="ticker-item"><span class="dot">✦</span>{{ post.title }}</span>
+    {% endfor %}
+    <span class="ticker-item"><span class="dot">✦</span>New articles every week</span>
+    <span class="ticker-item"><span class="dot">✦</span>Community Voices now live</span>
+    <span class="ticker-item"><span class="dot">✦</span>Creator tips &amp; insights</span>
+    {% for post in site.posts limit:10 %}
+    <span class="ticker-item"><span class="dot">✦</span>{{ post.title }}</span>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="{{ '/' | relative_url }}" class="logo">
+      <span>{{ site.title }}</span>
+    </a>
+    <nav>
+      <a href="#articles">Articles</a>
+      <a href="#topics">Topics</a>
+      <a href="#community">Community</a>
+      <a href="#about">About</a>
+      <a href="#newsletter" class="nav-cta">Subscribe</a>
+      <button id="rl-toggle-btn" title="Reading List" aria-label="Reading List">
+        🔖 <span>List</span>
+        <span id="rl-count-badge">0</span>
+      </button>
+      <button id="theme-toggle" title="Toggle theme">☀️</button>
+      <div class="nav-socials">
+        <a href="{{ site.social.youtube }}" class="yt" title="YouTube" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+        <a href="{{ site.social.instagram }}" class="ig" title="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+        <a href="{{ site.social.tiktok }}" class="tt" title="TikTok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="{{ site.social.facebook }}" class="fb" title="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+      <button id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <div class="hbg-lines">
+          <div class="hbg-line"></div>
+          <div class="hbg-line"></div>
+          <div class="hbg-line"></div>
+        </div>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-label="Navigation">
+  <button id="mobile-close" aria-label="Close menu">✕</button>
+  <a href="#articles">Articles</a>
+  <a href="#topics">Topics</a>
+  <a href="#community">Community</a>
+  <a href="#about">About</a>
+  <a href="#newsletter">Subscribe</a>
+</div>
+
+{{ content }}
+
+<!-- READING DRAWER -->
+<div id="reading-drawer" class="reading-drawer" role="complementary" aria-label="Reading List">
+  <div class="reading-drawer-header">
+    <h3>Reading List</h3>
+    <button id="rl-close-btn" aria-label="Close">✕</button>
+  </div>
+  <div id="reading-list-items"></div>
+</div>
+
+<!-- SOCIAL CONFIG PANEL -->
+<button id="social-cfg-btn" title="Update social links" aria-label="Update social links">
+  <i class="fa-solid fa-link"></i>
+</button>
+<div id="social-cfg-panel">
+  <h4>Social Links</h4>
+  <p>Update your social media URLs</p>
+  <div class="cfg-field">
+    <label><i class="fa-brands fa-youtube"></i> YouTube</label>
+    <input type="url" id="cfg-yt" placeholder="https://youtube.com/@handle" />
+  </div>
+  <div class="cfg-field">
+    <label><i class="fa-brands fa-instagram"></i> Instagram</label>
+    <input type="url" id="cfg-ig" placeholder="https://instagram.com/handle" />
+  </div>
+  <div class="cfg-field">
+    <label><i class="fa-brands fa-tiktok"></i> TikTok</label>
+    <input type="url" id="cfg-tt" placeholder="https://tiktok.com/@handle" />
+  </div>
+  <div class="cfg-field">
+    <label><i class="fa-brands fa-facebook-f"></i> Facebook</label>
+    <input type="url" id="cfg-fb" placeholder="https://facebook.com/page" />
+  </div>
+  <button id="cfg-save-btn">Save Links</button>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div id="search-modal">
+    <div id="search-modal-header">
+      <span id="search-modal-icon">⌕</span>
+      <input type="text" id="search-modal-input" placeholder="Search articles, topics, tags…" autocomplete="off" />
+      <kbd id="search-esc-hint">ESC</kbd>
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<!-- TOAST -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="{{ '/assets/main.js' | relative_url }}"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+</body>
+</html>
