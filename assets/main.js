@@ -1,4 +1,5 @@
-/* ── HERO GRID ── */
+document.addEventListener('DOMContentLoaded', () => {
+  /* ── HERO GRID ── */
   const heroGrid = document.getElementById('hero-grid');
   for (let i = 0; i < 36; i++) heroGrid.innerHTML += '<span></span>';
 
@@ -973,3 +974,6 @@
   if (logoImg) {
     logoImg.style.animation = 'goldGlow 3s ease-in-out infinite';
   }
+
+
+});
