@@ -1,0 +1,52 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "posts"
+    label: "Articles"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - label: "Tags"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options: ["Growth", "YouTube", "Storytelling", "Mindset", "Monetisation", "Tools"]
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "config"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "_config.yml"
+        fields:
+          - { label: "Site Title", name: "title", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Author Name", name: "about_name", widget: "string" }
+          - { label: "About Title", name: "about_title", widget: "string" }
+          - { label: "About Bio", name: "about_bio", widget: "text" }
+          - { label: "Hero Line 1", name: "hero_line1", widget: "string" }
+          - { label: "Hero Line 2 (italic gold)", name: "hero_line2", widget: "string" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text" }
+          - { label: "Newsletter Heading", name: "newsletter_heading", widget: "string" }
+          - { label: "Newsletter Subtext", name: "newsletter_subtext", widget: "text" }
+          - { label: "Newsletter Form Action URL", name: "newsletter_action", widget: "string" }
+          - { label: "Footer Copyright", name: "footer_copyright", widget: "string" }
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "YouTube URL", name: "youtube", widget: "string" }
+              - { label: "Instagram URL", name: "instagram", widget: "string" }
+              - { label: "TikTok URL", name: "tiktok", widget: "string" }
+              - { label: "Facebook URL", name: "facebook", widget: "string" }
