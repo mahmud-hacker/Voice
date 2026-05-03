@@ -1,0 +1,41 @@
+title: Voice
+tagline: "Your Story Deserves To Be Heard."
+description: "Honest advice, real stories, and practical tools for content creators who want to build something that lasts."
+author: Mahmud
+brand: Voice
+url: "https://voiceofc.netlify.app"
+baseurl: ""
+
+# Hero
+hero_line1: "Your Story"
+hero_line2: "Deserves To Be Heard."
+hero_subtitle: "Honest advice, real stories, and practical tools for content creators who want to build something that lasts."
+hero_btn1: "Read the Blog"
+hero_btn2: "My Story"
+
+# About
+about_name: "Mahmud"
+about_title: "Content Creator · Educator · Storyteller"
+about_bio: "I spent years figuring out content creation the hard way — so you don't have to. Voice is where I share everything I've learned."
+
+# Social (update these with your real URLs)
+social:
+  youtube: "https://youtube.com/@voice"
+  instagram: "https://instagram.com/voice"
+  tiktok: "https://tiktok.com/@voice"
+  facebook: "https://facebook.com/voiceblog"
+
+# Newsletter
+newsletter_heading: "Stay in the loop with Voice"
+newsletter_subtext: "Get new articles, creator tips, community stories, and behind-the-scenes updates straight to your inbox. No spam. No noise. Ever."
+newsletter_action: "#"
+
+# Footer
+footer_copyright: "© 2026 Voice — All rights reserved"
+
+# Jekyll settings
+markdown: kramdown
+permalink: /articles/:slug
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
