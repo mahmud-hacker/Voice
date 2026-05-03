@@ -1,0 +1,55 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Site Title", name: "site_title", widget: "string", default: "Voice" }
+          - { label: "Hero Heading Line 1", name: "hero_line1", widget: "string", default: "Your Story" }
+          - { label: "Hero Heading Line 2 (italic gold)", name: "hero_line2", widget: "string", default: "Deserves To Be Heard." }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text", default: "Honest advice, real stories, and practical tools for content creators who want to build something that lasts." }
+          - { label: "Hero Button 1 Text", name: "hero_btn1", widget: "string", default: "Read the Blog" }
+          - { label: "Hero Button 2 Text", name: "hero_btn2", widget: "string", default: "My Story" }
+          - { label: "About Name", name: "about_name", widget: "string", default: "Jordan V." }
+          - { label: "About Title", name: "about_title", widget: "string", default: "Content Creator · Educator · Storyteller" }
+          - { label: "About Bio", name: "about_bio", widget: "text", default: "I spent 6 years figuring out content creation the hard way — so you don't have to." }
+          - { label: "Newsletter Heading", name: "newsletter_heading", widget: "string", default: "Stay in the loop with Voice" }
+          - { label: "Newsletter Subtext", name: "newsletter_subtext", widget: "text", default: "Get new articles, creator tips, community stories, and behind-the-scenes updates straight to your inbox. No spam. No noise. Ever." }
+          - { label: "Newsletter Form Action URL (Mailchimp/ConvertKit)", name: "newsletter_action", widget: "string", default: "#" }
+          - { label: "Footer Copyright Text", name: "footer_copyright", widget: "string", default: "© 2026 Voice — All rights reserved" }
+
+  - name: "articles"
+    label: "Articles"
+    folder: "_articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Tag / Category", name: "tag", widget: "string", default: "Growth" }
+      - { label: "Date", name: "date", widget: "string", default: "May 2026" }
+      - { label: "Author", name: "author", widget: "string", default: "Jordan V." }
+      - { label: "Views", name: "views", widget: "string", default: "1.2K views" }
+      - { label: "Excerpt (short description)", name: "excerpt", widget: "text" }
+      - { label: "Featured Article", name: "featured", widget: "boolean", default: false }
+      - { label: "Body Content", name: "body", widget: "markdown" }
+
+  - name: "social"
+    label: "Social Links"
+    files:
+      - name: "links"
+        label: "Social Media URLs"
+        file: "_data/social.json"
+        fields:
+          - { label: "YouTube URL", name: "youtube", widget: "string", default: "https://youtube.com/@voice" }
+          - { label: "Instagram URL", name: "instagram", widget: "string", default: "https://instagram.com/voice" }
+          - { label: "TikTok URL", name: "tiktok", widget: "string", default: "https://tiktok.com/@voice" }
+          - { label: "Facebook URL", name: "facebook", widget: "string", default: "https://facebook.com/voiceblog" }
