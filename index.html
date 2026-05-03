@@ -1,0 +1,281 @@
+---
+layout: default
+title: Home
+---
+
+<!-- HERO -->
+<section class="hero">
+  <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,74,0.5),transparent);animation:scanLine 5s ease-in-out infinite;"></div>
+    <div style="position:absolute;top:2rem;left:2rem;width:40px;height:40px;border-top:1px solid rgba(201,162,74,0.3);border-left:1px solid rgba(201,162,74,0.3);"></div>
+    <div style="position:absolute;top:2rem;right:2rem;width:40px;height:40px;border-top:1px solid rgba(201,162,74,0.3);border-right:1px solid rgba(201,162,74,0.3);"></div>
+  </div>
+  <style>@keyframes scanLine{0%{top:0%;opacity:0}5%{opacity:1}95%{opacity:0.6}100%{top:100%;opacity:0}}</style>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-tag">Est. 2026 · {{ site.title }}</div>
+    <h1>{{ site.hero_line1 }} <em>{{ site.hero_line2 }}</em></h1>
+    <p class="hero-sub">{{ site.hero_subtitle }}</p>
+    <div class="hero-actions">
+      <a href="#articles" class="btn-primary">{{ site.hero_btn1 }} ✦</a>
+      <a href="#about" class="btn-ghost">{{ site.hero_btn2 }} →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">{{ site.posts | size }}+</div>
+        <div class="hero-stat-label">Articles Published</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">10K+</div>
+        <div class="hero-stat-label">Monthly Readers</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label">Topics Covered</div>
+      </div>
+    </div>
+  </div>
+  <canvas id="hero-canvas"></canvas>
+  <div id="hero-grid"></div>
+</section>
+
+<!-- ARTICLES -->
+<section class="posts-section" id="articles">
+  <div class="posts-header reveal">
+    <div class="section-label">Latest Articles</div>
+    <h2>Fresh from the Blog</h2>
+    <div class="posts-controls">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Search articles… (press /)" autocomplete="off" />
+      </div>
+      <button id="search-modal-trigger" class="search-modal-btn" aria-label="Advanced search">
+        <i class="fa-solid fa-sliders"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- TOPICS -->
+  <div class="topics-strip reveal" id="topics">
+    <a href="#" class="topic-pill active" data-topic="all">All</a>
+    <a href="#" class="topic-pill" data-topic="growth">Growth</a>
+    <a href="#" class="topic-pill" data-topic="youtube">YouTube</a>
+    <a href="#" class="topic-pill" data-topic="storytelling">Storytelling</a>
+    <a href="#" class="topic-pill" data-topic="mindset">Mindset</a>
+    <a href="#" class="topic-pill" data-topic="monetisation">Monetisation</a>
+    <a href="#" class="topic-pill" data-topic="tools">Tools</a>
+  </div>
+
+  <div id="posts-grid" class="posts-grid">
+
+    {% if site.posts.size > 0 %}
+      {% for post in site.posts %}
+      <article class="post-card reveal{% if forloop.index > 6 %} hidden-card{% endif %}" data-tag="{{ post.tags | first | downcase }}">
+        <div class="post-card-visual" style="background: linear-gradient(135deg, #0D1F3C 0%, #1B3A6B 100%);">
+          <div class="post-card-tag">{{ post.tags | first | default: "Article" }}</div>
+          <div class="post-card-title-bg">{{ post.title }}</div>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            <span>{{ post.date | date: "%b %Y" }}</span>
+            <span>·</span>
+            <span>{{ site.about_name }}</span>
+          </div>
+          <h3 class="post-card-title">{{ post.title }}</h3>
+          <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          <div class="post-card-footer">
+            <a href="{{ post.url | relative_url }}" class="post-card-read">Read Article →</a>
+            <div class="post-card-actions">
+              <button class="ai-summarize-btn" data-title="{{ post.title }}" data-excerpt="{{ post.excerpt | strip_html | truncate: 300 }}">✦ AI Summary</button>
+              <button class="bookmark-btn" data-title="{{ post.title }}" data-url="{{ post.url | relative_url }}" aria-label="Bookmark">🔖</button>
+            </div>
+          </div>
+          <div class="ai-summary-panel">
+            <div class="ai-summary-header"><div class="ai-dot"></div>AI Summary</div>
+            <div class="ai-summary-text"></div>
+            <button class="ai-summary-close">Close</button>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    {% else %}
+      <!-- Default sample articles when no posts exist yet -->
+      <article class="post-card reveal" data-tag="growth">
+        <div class="post-card-visual" style="background:linear-gradient(135deg,#0D1F3C,#1B3A6B);">
+          <div class="post-card-tag">Growth</div>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>May 2026</span><span>·</span><span>{{ site.about_name }}</span></div>
+          <h3 class="post-card-title">How to Grow Your First 1,000 Subscribers</h3>
+          <p class="post-card-excerpt">The honest truth about what actually works when you're starting from zero — no shortcuts, just real strategies.</p>
+          <div class="post-card-footer">
+            <span class="post-card-read" style="color:var(--muted);font-size:0.75rem;">Coming soon</span>
+          </div>
+        </div>
+      </article>
+      <article class="post-card reveal" data-tag="youtube">
+        <div class="post-card-visual" style="background:linear-gradient(135deg,#1B3A6B,#2A5299);">
+          <div class="post-card-tag">YouTube</div>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>May 2026</span><span>·</span><span>{{ site.about_name }}</span></div>
+          <h3 class="post-card-title">The YouTube Algorithm Explained Simply</h3>
+          <p class="post-card-excerpt">Stop guessing what the algorithm wants. Here's a clear breakdown of how it actually decides who sees your videos.</p>
+          <div class="post-card-footer">
+            <span class="post-card-read" style="color:var(--muted);font-size:0.75rem;">Coming soon</span>
+          </div>
+        </div>
+      </article>
+      <article class="post-card reveal" data-tag="mindset">
+        <div class="post-card-visual" style="background:linear-gradient(135deg,#0D1F3C,#C9A24A22);">
+          <div class="post-card-tag">Mindset</div>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>May 2026</span><span>·</span><span>{{ site.about_name }}</span></div>
+          <h3 class="post-card-title">Consistency Over Perfection</h3>
+          <p class="post-card-excerpt">Why waiting until it's perfect is the biggest mistake creators make — and how to break the cycle for good.</p>
+          <div class="post-card-footer">
+            <span class="post-card-read" style="color:var(--muted);font-size:0.75rem;">Coming soon</span>
+          </div>
+        </div>
+      </article>
+    {% endif %}
+
+    <div id="load-more-btn" class="post-card load-more-card{% if site.posts.size <= 6 %} hidden{% endif %}">
+      <button>Load More Articles ↓</button>
+    </div>
+    <div id="no-results" style="display:none;grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.8rem;">No articles found.</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section reveal" id="about">
+  <div class="section-label">About</div>
+  <div class="about-card">
+    <div class="about-avatar">🎙️</div>
+    <div>
+      <div class="about-name">{{ site.about_name }}</div>
+      <div class="about-title">{{ site.about_title }}</div>
+      <p class="about-bio">{{ site.about_bio }}</p>
+      <div class="about-badges">
+        <span class="about-badge">Content Creator</span>
+        <span class="about-badge">Educator</span>
+        <span class="about-badge">Storyteller</span>
+        <span class="about-badge">Voice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL HUB -->
+<div class="social-hub reveal">
+  <div class="section-label">Follow Along</div>
+  <div class="social-grid">
+    <a href="{{ site.social.youtube }}" class="social-card sc-youtube" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="fa-brands fa-youtube" style="color:#FF0000;"></i></div>
+      <h3>YouTube</h3>
+      <p>Video essays, tutorials,<br>and creator deep dives</p>
+      <span class="social-handle">@voice</span>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="{{ site.social.instagram }}" class="social-card sc-instagram" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="fa-brands fa-instagram" style="color:#e6683c;"></i></div>
+      <h3>Instagram</h3>
+      <p>Behind the scenes and<br>daily creator tips</p>
+      <span class="social-handle">@voice</span>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="{{ site.social.tiktok }}" class="social-card sc-tiktok" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="fa-brands fa-tiktok" style="color:var(--gold-light);"></i></div>
+      <h3>TikTok</h3>
+      <p>Short-form tips and<br>creator motivation</p>
+      <span class="social-handle">@voice</span>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="{{ site.social.facebook }}" class="social-card sc-facebook" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="fa-brands fa-facebook-f" style="color:#4299f7;"></i></div>
+      <h3>Facebook</h3>
+      <p>Community discussions<br>and longer updates</p>
+      <span class="social-handle">Voice</span>
+      <span class="social-arrow">↗</span>
+    </a>
+  </div>
+</div>
+
+<!-- COMMUNITY VOICES -->
+<div class="chat-section" id="community">
+  <div class="section-label">Community Voices</div>
+  <div class="chat-box">
+    <div class="chat-topbar">
+      <div class="chat-topbar-left">
+        <div class="chat-live-dot"></div>
+        <h3>Voice Community <span style="font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);font-weight:400;letter-spacing:0.06em;margin-left:0.5rem;">(simulated)</span></h3>
+      </div>
+      <span class="chat-online-count" id="online-count">— online</span>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-emoji-row" id="chat-emoji-row">
+      <button class="emoji-btn" data-emoji="🔥">🔥</button>
+      <button class="emoji-btn" data-emoji="👏">👏</button>
+      <button class="emoji-btn" data-emoji="💡">💡</button>
+      <button class="emoji-btn" data-emoji="❤️">❤️</button>
+      <button class="emoji-btn" data-emoji="✦">✦</button>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-name-input" id="chat-name" placeholder="Your name" maxlength="20" />
+      <input type="text" class="chat-text-input" id="chat-input" placeholder="Share a thought…" maxlength="200" />
+      <button class="chat-send-btn" id="chat-send">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter" id="newsletter">
+  <h2 style="background:linear-gradient(135deg,var(--text) 0%,var(--gold) 50%,var(--navy-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ site.newsletter_heading }}</h2>
+  <p>{{ site.newsletter_subtext }}</p>
+  <form id="newsletter-form" action="{{ site.newsletter_action }}" method="POST" target="_blank" novalidate>
+    <div class="sub-form">
+      <input type="email" id="sub-input" name="EMAIL" placeholder="your@email.com" autocomplete="email" required />
+      <button type="submit" id="sub-btn">Subscribe</button>
+    </div>
+    <div id="sub-feedback" style="display:none;margin-top:0.75rem;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.04em;"></div>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{{ '/' | relative_url }}" class="logo" style="font-size:1.3rem;"><span>{{ site.title }}</span></a>
+        <p style="color:var(--text2);font-size:0.88rem;margin-top:0.75rem;max-width:28ch;font-weight:300;">{{ site.description }}</p>
+      </div>
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <a href="#articles" style="color:var(--text2);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">Articles</a>
+          <a href="#topics" style="color:var(--text2);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">Topics</a>
+          <a href="#community" style="color:var(--text2);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">Community</a>
+          <a href="#about" style="color:var(--text2);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">About</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Connect</div>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <a href="{{ site.social.youtube }}" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:0.88rem;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">YouTube</a>
+          <a href="{{ site.social.instagram }}" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:0.88rem;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">Instagram</a>
+          <a href="{{ site.social.tiktok }}" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:0.88rem;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">TikTok</a>
+          <a href="{{ site.social.facebook }}" target="_blank" rel="noopener" style="color:var(--text2);text-decoration:none;font-size:0.88rem;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text2)'">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{ site.footer_copyright }}</span>
+      <div class="footer-social-row">
+        <a href="{{ site.social.youtube }}" class="footer-social-btn yt" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+        <a href="{{ site.social.instagram }}" class="footer-social-btn ig" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="{{ site.social.tiktok }}" class="footer-social-btn tt" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        <a href="{{ site.social.facebook }}" class="footer-social-btn fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
